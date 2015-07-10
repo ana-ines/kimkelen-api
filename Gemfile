@@ -8,10 +8,12 @@ gem 'rails-api'
 gem 'spring', :group => :development
 
 
-gem 'mysql2',       '~> 0.3.16'
+gem 'mysql2',       			  			'~> 0.3.16'
 
 # Responders (for DRY flash behaviour)
 gem 'responders',                 '~> 2.1.0'
+
+gem 'active_model_serializers',   '~> 0.9.3'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

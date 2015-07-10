@@ -7,6 +7,11 @@ class StudentsController < ApplicationController
     render json: @student
   end
 
+  def personal_information
+    @students = Student.all
+    render json: @students, status: :ok
+  end
+
   private
 
     def set_student

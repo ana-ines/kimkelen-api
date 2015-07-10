@@ -1,8 +1,34 @@
 Rails.application.routes.draw do
   
-  resources :tutors, except: [:new, :edit]
-  resources :teachers, except: [:new, :edit]
-  resources :students, except: [:new, :edit]
+  resources :tutors,                except: [:new, :edit]
+  resources :teachers,              except: [:new, :edit]
+  resources :students,              except: [:new, :edit]
+
+  # GET = READ
+  # POST = CREATE
+  # PUT = UPDATE
+  # DELETE = DELETE
+
+  #post      '/api/login', to: 
+
+
+  get       '/api/student/:id', to: 'students#personal_information'
+
+  #get       '/api/student/:id/image' 
+
+
+  #post      '/api/tutor/:id'
+
+  #get       '/api/tutor/:id/students'
+
+
+  #get       '/api/school_years'
+
+  #get       '/api/student/:id/marks/:school_year'
+
+  #get       '/api/student/:id/absences/:school_year'
+
+  #get       '/api/student/:id/disciplinary_sanctions/:school_year'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
