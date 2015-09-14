@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150706112809) do
+ActiveRecord::Schema.define(version: 20150730152528) do
 
   create_table "absence_type", force: :cascade do |t|
     t.string  "name",        limit: 255,                                         null: false
@@ -581,6 +581,14 @@ ActiveRecord::Schema.define(version: 20150706112809) do
   add_index "school_year_student", ["student_id", "school_year_id"], name: "student_school_year", using: :btree
   add_index "school_year_student", ["student_id", "school_year_id"], name: "unique", unique: true, using: :btree
 
+  create_table "school_years", force: :cascade do |t|
+    t.integer  "year",       limit: 4
+    t.boolean  "is_active",  limit: 1
+    t.boolean  "is_closed",  limit: 1
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
   create_table "sf_guard_group", force: :cascade do |t|
     t.string "name",        limit: 255,   null: false
     t.text   "description", limit: 65535
@@ -915,6 +923,13 @@ ActiveRecord::Schema.define(version: 20150706112809) do
   add_index "student_tutor", ["student_id"], name: "student_tutor_FI_2", using: :btree
   add_index "student_tutor", ["tutor_id"], name: "student_tutor_FI_1", using: :btree
 
+  create_table "student_tutors", force: :cascade do |t|
+    t.integer  "tutor_id",   limit: 4
+    t.integer  "student_id", limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
   create_table "students", force: :cascade do |t|
     t.string   "global_file_number", limit: 255
     t.integer  "person_id",          limit: 4
@@ -1022,6 +1037,35 @@ ActiveRecord::Schema.define(version: 20150706112809) do
   create_table "tutor_type", force: :cascade do |t|
     t.string "name", limit: 255, null: false
   end
+
+  create_table "tutor_types", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "tutors", force: :cascade do |t|
+    t.integer  "person_id",              limit: 4
+    t.integer  "occupation_id",          limit: 4
+    t.integer  "tutor_type_id",          limit: 4
+    t.integer  "nationality",            limit: 4
+    t.integer  "occupation_category_id", limit: 4
+    t.integer  "study_id",               limit: 4
+    t.boolean  "is_alive",               limit: 1
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "api_key",    limit: 255
+    t.string   "username",   limit: 255
+    t.string   "password",   limit: 255
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "auth_token", limit: 255, default: ""
+  end
+
+  add_index "users", ["auth_token"], name: "index_users_on_auth_token", unique: true, using: :btree
 
   add_foreign_key "address", "city", name: "address_FK_2"
   add_foreign_key "address", "state", name: "address_FK_1"

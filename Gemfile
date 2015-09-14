@@ -7,6 +7,8 @@ gem 'rails-api'
 
 gem 'spring', :group => :development
 
+# Auth(entic|oriz)ation libraries
+gem 'devise',                          '~> 3.5.1'
 
 gem 'mysql2',       			  			'~> 0.3.16'
 
@@ -19,7 +21,7 @@ gem 'active_model_serializers',   '~> 0.9.3'
 # gem 'bcrypt', '~> 3.1.7'
 
 # To use Jbuilder templates for JSON
-# gem 'jbuilder'
+gem 'jbuilder'
 
 # Use unicorn as the app server
 # gem 'unicorn'

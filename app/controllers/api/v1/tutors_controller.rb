@@ -4,15 +4,22 @@ class TutorsController < ApplicationController
   # GET /tutors
   # GET /tutors.json
   def index
+    # http://localhost:3000/tutors/
     @tutors = Tutor.all
-
     render json: @tutors
   end
 
-  # GET /tutors/1
-  # GET /tutors/1.json
   def show
+    # http://localhost:3000/tutors/3
+    @tutor = Person.joins(:tutors).find_by(id: @tutor.person_id)
     render json: @tutor
+  end
+
+  # http://localhost:3000/tutors/5/students/
+  def students
+    #Obtener listado de estudiantes a cargo de un tutor
+    @students = StudentTutor.where(tutor_id: params[:id])
+    render json: @students
   end
 
   # POST /tutors
