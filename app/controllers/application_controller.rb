@@ -1,14 +1,9 @@
 class ApplicationController < ActionController::API
-	
-	# Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
-  
-  #protect_from_forgery with: :null_session
 
-  #include Authenticable
+  include ActionController::ImplicitRender
 
-      
-
-   include ActionController::ImplicitRender
+  def invalid_request
+    render json: {error: "Invalid request.", status: 400}, status: :bad_request
+  end 
   
 end

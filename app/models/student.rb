@@ -12,12 +12,12 @@ class Student < ActiveRecord::Base
 	      student.id id
 	      student.global_file_number global_file_number
 	      student.person person.to_builder
-	      student._links do |link|
-	      	student.set! :ref, 'self'
-	      	student.set! :href, image_path
-	      	student.set! :method, 'GET'
-	      end
+	      student._links _links
 	    end
+  	end
+
+  	def _links
+  		[ref: 'self', href: image_path, method: 'GET']
   	end
 end
                   

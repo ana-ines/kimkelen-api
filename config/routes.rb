@@ -11,4 +11,6 @@ Rails.application.routes.draw do
 
     end
   end
+
+  get '*unmatched_route', to: 'application#invalid_request'
 end
