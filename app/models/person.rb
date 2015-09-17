@@ -2,6 +2,8 @@ class Person < ActiveRecord::Base
   self.table_name = "person"
 
   has_one :student
+  has_one :tutor
+  
   belongs_to :address
 
   def to_builder

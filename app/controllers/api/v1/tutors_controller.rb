@@ -1,66 +1,20 @@
-class TutorsController < ApplicationController
-  before_action :set_tutor, only: [:show, :update, :destroy]
+class Api::V1::TutorsController < Api::V1::ApiController
 
-  # GET /tutors
-  # GET /tutors.json
-  def index
-    # http://localhost:3000/tutors/
-    @tutors = Tutor.all
-    render json: @tutors
-  end
+  before_action :set_tutor, only: [:show]
+  before_action :set_person, only: [:show]
 
   def show
-    # http://localhost:3000/tutors/3
-    @tutor = Person.joins(:tutors).find_by(id: @tutor.person_id)
-    render json: @tutor
-  end
-
-  # http://localhost:3000/tutors/5/students/
-  def students
-    #Obtener listado de estudiantes a cargo de un tutor
-    @students = StudentTutor.where(tutor_id: params[:id])
-    render json: @students
-  end
-
-  # POST /tutors
-  # POST /tutors.json
-  def create
-    @tutor = Tutor.new(tutor_params)
-
-    if @tutor.save
-      render json: @tutor, status: :created, location: @tutor
-    else
-      render json: @tutor.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /tutors/1
-  # PATCH/PUT /tutors/1.json
-  def update
-    @tutor = Tutor.find(params[:id])
-
-    if @tutor.update(tutor_params)
-      head :no_content
-    else
-      render json: @tutor.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /tutors/1
-  # DELETE /tutors/1.json
-  def destroy
-    @tutor.destroy
-
-    head :no_content
+   # consulta es postman: http://localhost:3000/api/v1/tutor/3
+    render json: {error: "Invalid tutor id.", status: 404}, status: :not_found if @tutor.nil?
   end
 
   private
 
     def set_tutor
-      @tutor = Tutor.find(params[:id])
+      @tutor = Tutor.find_by(id: params[:id])
     end
 
-    def tutor_params
-      params.require(:tutor).permit(:person_id, :occupation_id, :tutor_type_id, :nationality, :occupation_category_id, :study_id, :is_alive)
+    def set_person
+      @person = Person.find(@tutor.person_id) if @tutor
     end
 end
