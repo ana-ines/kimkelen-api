@@ -3,7 +3,6 @@ class Api::V1::StudentsController < Api::V1::ApiController
   before_action :set_student, only: [:show]
   before_action :set_person, only: [:show]
 
-  respond_to :json
 
   def show
     # consulta es postman: http://localhost:3000/api/v1/students/3

@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       resources :students, only: [:show]
       resources :tutors, only: [:show]
       resources :school_years, only: [:index]
-      resources :users, only: [:index]
+      resources :users, only: [:show]
 
     end
   end
