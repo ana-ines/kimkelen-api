@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resources :students, only: [:show] do
       	member do
       		get 'marks/:school_year', to: 'students#marks'
+          get 'absences/:school_year', to: 'students#absences'
       	end
       end
       resources :tutors, only: [:show]

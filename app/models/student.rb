@@ -7,6 +7,7 @@ class Student < ActiveRecord::Base
 	has_many :student_career_school_years
 	has_many :course_subject_students
 	has_many :student_approved_career_subjects
+	has_many :student_attendances
 
 	def image_path
 		"#{self.self_path}/image"
@@ -56,6 +57,22 @@ class Student < ActiveRecord::Base
 			avg = (sum / total_student_approved_career_subjects.size).round(2)
 			avg if avg >= 7
 		end
+	end
+
+	def absences_for_year(school_year)
+		student_attendances.absences.joins(:career_school_year).where("career_school_year.school_year_id = ?", school_year.id)
+	end
+
+	def absences_to_builder(school_year)
+		Jbuilder.new do |student_attendance|
+			student_attendance.school_year school_year.year
+			student_attendance.absences absences_for_year(school_year).map {|sa| sa.to_builder.attributes!}
+			student_attendance.total_absences total_absences(school_year)
+		end
+	end
+
+	def total_absences(school_year)
+		absences_for_year(school_year).size
 	end
 
 	private
