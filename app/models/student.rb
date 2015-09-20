@@ -42,9 +42,9 @@ class Student < ActiveRecord::Base
   	career_school_year = CareerSchoolYear.find_by(school_year: school_year)
  		@student_career_school_year = StudentCareerSchoolYear.find_by(student: self, career_school_year: career_school_year)
 		Jbuilder.new do |student|
-			student.school_year school_year
+			student.school_year school_year.year
 			student.year @student_career_school_year.year
-			student.status @student_career_school_year.status
+			student.status StudentStatus::get_option @student_career_school_year.status
 			student.course_subjects course_subjects_students_for(school_year).map { |css| css.to_builder.attributes! }
 			student.global_average global_average(school_year)
 		end

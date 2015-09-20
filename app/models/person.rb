@@ -10,7 +10,7 @@ class Person < ActiveRecord::Base
     Jbuilder.new do |person|
       person.firstname firstname
       person.lastname lastname
-      person.identification_type identification_type
+      person.identification_type IdentificationType::get_option identification_type
       person.identification_number identification_number  
       person.phone phone 
       person.email email

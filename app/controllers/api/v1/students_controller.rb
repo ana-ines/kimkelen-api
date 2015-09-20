@@ -13,7 +13,6 @@ class Api::V1::StudentsController < Api::V1::ApiController
   def marks
     # consulta: http://localhost:3000/api/v1/students/5/marks/2011 -> exitosa
     # consulta: http://localhost:3000/api/v1/students/487/marks/2012 -> desaprobado
-
     return render json: {error: "Invalid school_year.", status: 404}, status: :not_found if @school_year.nil?
     
     return render json: {error: "Invalid student id.", status: 404}, status: :not_found if @student.nil?
@@ -29,6 +28,7 @@ class Api::V1::StudentsController < Api::V1::ApiController
   end
 
   def disciplinary_sanctions
+    # consulta: http://localhost:3000/api/v1/students/677/disciplinary_sanctions/2011
     return render json: {error: "Invalid school_year.", status: 404}, status: :not_found if @school_year.nil?
     return render json: {error: "Invalid student id.", status: 404}, status: :not_found if @student.nil? 
   end

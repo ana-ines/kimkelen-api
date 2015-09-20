@@ -9,8 +9,8 @@ class Tutor < ActiveRecord::Base
 	def to_builder
 	  Jbuilder.new do |tutor|
 	    tutor.id id
-	    tutor.person person.to_builder
 	    tutor.tutor_type tutor_type.to_builder
+	    tutor.person person.to_builder
 	    tutor.students students.map { |st| st.to_builder_for_tutor.attributes! }
 	  end
 	end
