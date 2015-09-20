@@ -8,6 +8,7 @@ class Student < ActiveRecord::Base
 	has_many :course_subject_students
 	has_many :student_approved_career_subjects
 	has_many :student_attendances
+	has_many :disciplinary_sanctions
 
 	def image_path
 		"#{self.self_path}/image"
@@ -73,6 +74,18 @@ class Student < ActiveRecord::Base
 
 	def total_absences(school_year)
 		absences_for_year(school_year).size
+	end
+
+	def total_disciplinary_sanctions(school_year)
+		disciplinary_sanctions.where("student_advice.school_year_id = ?", school_year.id).size
+	end
+
+	def disciplinary_sanctions_to_builder(school_year)
+		Jbuilder.new do |sanctions|
+			sanctions.school_year school_year.year
+			sanctions.disciplinary_sanctions disciplinary_sanctions.where("student_advice.school_year_id = ?", school_year.id).map {|ds| ds.to_builder.attributes!}
+			sanctions.total_disciplinary_sanctions total_disciplinary_sanctions(school_year)
+		end
 	end
 
 	private

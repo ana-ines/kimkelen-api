@@ -1,8 +1,8 @@
 class Api::V1::StudentsController < Api::V1::ApiController
 
-  before_action :set_student, only: [:show, :marks, :absences]
+  before_action :set_student, only: [:show, :marks, :absences, :disciplinary_sanctions]
   before_action :set_person, only: [:show]
-  before_action :set_school_year, only: [:marks, :absences]
+  before_action :set_school_year, only: [:marks, :absences, :disciplinary_sanctions]
 
 
   def show
@@ -19,6 +19,11 @@ class Api::V1::StudentsController < Api::V1::ApiController
 
   def absences
     # consulta: http://localhost:3000/api/v1/students/975/absences/2012
+    render json: {error: "Invalid school_year.", status: 404}, status: :not_found if @school_year.nil?
+    render json: {error: "Invalid student id.", status: 404}, status: :not_found if @student.nil? 
+  end
+
+  def disciplinary_sanctions
     render json: {error: "Invalid school_year.", status: 404}, status: :not_found if @school_year.nil?
     render json: {error: "Invalid student id.", status: 404}, status: :not_found if @student.nil? 
   end
