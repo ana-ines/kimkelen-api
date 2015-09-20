@@ -1,1 +1,1 @@
-json.disciplinary_sanctions @student.disciplinary_sanctions_to_builder(@school_year)
+json.disciplinary_sanctions_for_year @student.disciplinary_sanctions_to_builder(@school_year)
