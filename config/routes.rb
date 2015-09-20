@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       		get 'marks/:school_year', to: 'students#marks'
           get 'absences/:school_year', to: 'students#absences'
           get 'disciplinary_sanctions/:school_year', to: 'students#disciplinary_sanctions'
+          get 'school_years', to: 'students#school_years'
       	end
       end
       resources :tutors, only: [:show]

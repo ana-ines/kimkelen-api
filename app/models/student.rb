@@ -1,6 +1,8 @@
 class Student < ActiveRecord::Base
 	self.table_name = "student"
 
+	MIN_AVERAGE = 7
+
 	belongs_to :person
 	has_many :student_tutors
 	has_many :tutors, through: :student_tutors
@@ -9,6 +11,7 @@ class Student < ActiveRecord::Base
 	has_many :student_approved_career_subjects
 	has_many :student_attendances
 	has_many :disciplinary_sanctions
+	has_many :school_year_students
 
 	def image_path
 		"#{self.self_path}/image"
@@ -56,7 +59,7 @@ class Student < ActiveRecord::Base
 		sum = total_student_approved_career_subjects.inject(0) {|total, x| total + x.mark }
 		unless sum.zero?
 			avg = (sum / total_student_approved_career_subjects.size).round(2)
-			avg if avg >= 7
+			avg if avg >= MIN_AVERAGE
 		end
 	end
 
@@ -86,6 +89,10 @@ class Student < ActiveRecord::Base
 			sanctions.disciplinary_sanctions disciplinary_sanctions.where("student_advice.school_year_id = ?", school_year.id).map {|ds| ds.to_builder.attributes!}
 			sanctions.total_disciplinary_sanctions total_disciplinary_sanctions(school_year)
 		end
+	end
+
+	def school_years_to_builder
+		school_year_students.map {|sys| sys.school_year.to_builder.attributes!}
 	end
 
 	private
