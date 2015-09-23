@@ -6,34 +6,34 @@ class Api::V1::StudentsController < Api::V1::ApiController
 
   def show
     # consulta: http://localhost:3000/api/v1/students/3
-    render json: {error: "Invalid student id.", status: 404}, status: :not_found if @student.nil?
+    render json: {error: I18n.t("errors.messages.student.invalid"), status: 404}, status: :not_found if @student.nil?
   end
 
   def marks
     # consulta: http://localhost:3000/api/v1/students/5/marks/2011 -> exitosa
     # consulta: http://localhost:3000/api/v1/students/487/marks/2012 -> desaprobado
-    return render json: { error: "Invalid school_year.", status: 404 }, status: :not_found if @school_year.nil?
+    return render json: { error: I18n.t("errors.messages.school_year.invalid"), status: 404 }, status: :not_found if @school_year.nil?
     
-    return render json: { error: "Invalid student id.", status: 404 }, status: :not_found if @student.nil?
+    return render json: { error: I18n.t("errors.messages.student.invalid"), status: 404 }, status: :not_found if @student.nil?
    
-    return render json: { error: "Invalid school year for student.", status: 500 }, status: :server_error unless @student.school_year_students.map(&:school_year).include? @school_year
+    return render json: { error: I18n.t("errors.messages.student.invalid_school_year"), status: 500 }, status: :server_error unless @student.school_year_students.map(&:school_year).include? @school_year
 
   end
 
   def absences
     # consulta: http://localhost:3000/api/v1/students/975/absences/2012
-    return render json: { error: "Invalid school_year.", status: 404 }, status: :not_found if @school_year.nil?
-    return render json: { error: "Invalid student id.", status: 404 }, status: :not_found if @student.nil?
+    return render json: { error: I18n.t("errors.messages.school_year.invalid"), status: 404 }, status: :not_found if @school_year.nil?
+    return render json: { error: I18n.t("errors.messages.student.invalid"), status: 404 }, status: :not_found if @student.nil?
   end
 
   def disciplinary_sanctions
     # consulta: http://localhost:3000/api/v1/students/677/disciplinary_sanctions/2011
-    return render json: { error: "Invalid school_year.", status: 404 }, status: :not_found if @school_year.nil?
-    return render json: { error: "Invalid student id.", status: 404 }, status: :not_found if @student.nil?
+    return render json: { error: I18n.t("errors.messages.school_year.invalid"), status: 404 }, status: :not_found if @school_year.nil?
+    return render json: { error: I18n.t("errors.messages.student.invalid"), status: 404 }, status: :not_found if @student.nil?
   end
 
   def school_years
-    render json: { error: "Invalid student id.", status: 404 }, status: :not_found if @student.nil?
+    render json: { error: I18n.t("errors.messages.student.invalid"), status: 404 }, status: :not_found if @student.nil?
   end
 
 

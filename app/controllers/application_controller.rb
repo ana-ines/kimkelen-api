@@ -5,7 +5,7 @@ class ApplicationController < ActionController::API
   respond_to :json
 
   def invalid_request
-    render json: { error: "Invalid request.", status: 400 }, status: :bad_request
+    render json: { error: I18n.t("errors.messages.invalid_request"), status: 400 }, status: :bad_request
   end 
   
 end
