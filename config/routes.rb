@@ -1,4 +1,3 @@
-
 Rails.application.routes.draw do
   
   namespace :api do
@@ -13,7 +12,6 @@ Rails.application.routes.draw do
       end
       resources :tutors, only: [:show]
       resources :school_years, only: [:index]
-      resources :users, only: [:show]
     end
   end
   get '*unmatched_route', to: 'application#invalid_request'
