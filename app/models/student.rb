@@ -18,7 +18,7 @@ class Student < ActiveRecord::Base
 	end
 
 	def self_path
-		"/student/#{self.id}"
+		"/students/#{self.id}"
 	end
 
 	def to_builder
