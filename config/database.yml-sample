@@ -1,8 +1,8 @@
 development:
-  database: kimkelen
+  database: #DBNAME#
   adapter:  mysql2
   encoding: utf8
   pool:     5
-  username: root
+  username: #USERNAME#
   password: 
-  host:     localhost
+  host:     #HOST#
